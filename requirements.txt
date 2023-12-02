@@ -1,0 +1,5 @@
+# pip install fastapi
+# pip install "uvicorn[standard]"
+
+# pip install fastapi==0.78.0
+# pip install "uvicorn[standard]==0.17.6" 
