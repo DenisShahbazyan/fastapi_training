@@ -1,15 +1,16 @@
-from fastapi import FastAPI, Body
+from fastapi import APIRouter, Body
 
-from schemas import Person
-
-
-app = FastAPI()
+from app.schemas.schemas import Person
 
 
-@app.post('/hello')
+router = APIRouter()
+
+
+@router.post('/hello')
 def greetings(
         person: Person = Body(
-            ..., examples=Person.Config.schema_extra['examples']
+            ...,
+            examples=Person.Config.schema_extra['examples']
         )
 ) -> dict[str, str]:
     if isinstance(person.surname, list):
@@ -17,6 +18,7 @@ def greetings(
     else:
         surnames = person.surname
     result = ' '.join([person.name, surnames])
+    result = result.title()
     if person.age is not None:
         result += ', ' + str(person.age)
     if person.education_level is not None:
